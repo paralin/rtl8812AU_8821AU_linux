@@ -1,7 +1,7 @@
 /******************************************************************************
  *
  * Copyright(c) 2007 - 2011 Realtek Corporation. All rights reserved.
- *                                        
+ *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of version 2 of the GNU General Public License as
  * published by the Free Software Foundation.
@@ -23,6 +23,18 @@
 
 #if defined (CONFIG_LITTLE_ENDIAN) && defined (CONFIG_BIG_ENDIAN)
 #error "Shall be CONFIG_LITTLE_ENDIAN or CONFIG_BIG_ENDIAN, but not both!\n"
+#endif
+
+#if !((defined CONFIG_LITTLE_ENDIAN) || (defined CONFIG_BIG_ENDIAN))
+#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+#define CONFIG_LITTLE_ENDIAN
+//#warning "Auto-detected little-endian system...hope it is correct!"
+#else
+#if __BYTE_ORDER == __BIG_ENDIAN
+//#warning "Auto-detected big-endian system...hope it is correct!"
+#define CONFIG_BIG_ENDIAN
+#endif
+#endif
 #endif
 
 #if defined (CONFIG_LITTLE_ENDIAN)
